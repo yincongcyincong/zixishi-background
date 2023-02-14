@@ -1,3 +1,4 @@
+CREATE DATABASE `study_room`;
 CREATE TABLE `seatinfo`
 (
     `id`           bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
@@ -14,6 +15,7 @@ CREATE TABLE `study_room`
 (
     `id`    bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
     `intro` text                not null DEFAULT '' COMMENT '介绍',
+    `name`  varchar(255)        not null DEFAULT '' COMMENT '自习室名称',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
@@ -46,5 +48,9 @@ CREATE TABLE `buy_record`
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8 COMMENT ='购买记录表';
 
-INSERT INTO study_room values(1, '这是一个自习室');
-INSERT INTO seat_type values(1, 1, '{"按日缴费": 9,"按日缴费": 59,"按日缴费": 269}', '休闲舒适区[图片图片]', '休闲舒适区');
+INSERT INTO study_room
+values (1, '这是一个自习室');
+INSERT INTO seat_type
+values (1, 1, '{"按日缴费": 9,"按日缴费": 59,"按日缴费": 269}', '休闲舒适区[图片图片]', '休闲舒适区');
+INSERT INTO seatinfo
+values (1, 1, 1, 1676292591, 1676292591);
