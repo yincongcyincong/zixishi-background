@@ -1,17 +1,19 @@
 package model
 
 type StudyRoomParam struct {
+	ID    int64  `json:"id"`
 	Intro string `json:"intro"`
 	Name  string `json:"name"`
 }
 
 type SeatinfoParam struct {
+	ID         int64 `json:"id"`
 	Sid        int64 `json:"sid"`
 	SeatTypeId int64 `json:"seat_type_id"`
-	UpdateTime int64 `json:"update_time"`
 }
 
 type SeatTypeParam struct {
+	ID         int64  `json:"id"`
 	Sid        int64  `json:"sid"`
 	Intro      string `json:"intro"`
 	PriceIntro string `json:"price_intro"`

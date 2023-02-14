@@ -56,10 +56,40 @@ func AddBuyRecord(c *gin.Context) {
 	}
 	result := config.DB.Create(dbParam)
 	if result.Error != nil {
-		log.Println(err)
+		log.Println(result.Error)
 		c.JSON(http.StatusOK, utils.Fail(utils.DBErrCode, utils.DBErrMsg, ""))
 		return
 	}
 
 	c.JSON(http.StatusOK, utils.Succ(""))
+}
+
+func GetRecord(c *gin.Context) {
+	page := c.GetInt(c.DefaultQuery("page", "1"))
+
+	number := 20
+	limit := (page - 1) * number
+
+	records := make([]*model.BuyRecord, 0)
+	result := config.DB.Limit(limit).Order("id desc").Find(&records)
+	if result.Error != nil {
+		log.Println(result.Error)
+		c.AbortWithStatus(http.StatusInternalServerError)
+		return
+	}
+	var count int64
+	result = config.DB.Count(&count)
+	if result.Error != nil {
+		log.Println(result.Error)
+		c.AbortWithStatus(http.StatusInternalServerError)
+		return
+	}
+
+	// c.JSON：返回JSON格式的数据
+	c.HTML(http.StatusOK, "main.html", gin.H{
+		"title":   "posts/index",
+		"records": records,
+		"count":   utils.NewPaginator(c.Request, number, count),
+	})
+
 }
