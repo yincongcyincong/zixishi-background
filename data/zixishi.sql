@@ -1,5 +1,5 @@
 CREATE DATABASE `study_room`;
-CREATE TABLE `seatinfo`
+CREATE TABLE `seatinfos`
 (
     `id`           bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
     `sid`          bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT '自习室id',
@@ -11,7 +11,7 @@ CREATE TABLE `seatinfo`
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8 COMMENT ='座位表';
 
-CREATE TABLE `study_room`
+CREATE TABLE `study_rooms`
 (
     `id`    bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
     `intro` text                not null DEFAULT '' COMMENT '介绍',
@@ -21,7 +21,7 @@ CREATE TABLE `study_room`
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8 COMMENT ='自习室表';
 
-CREATE TABLE `seat_type`
+CREATE TABLE `seat_types`
 (
     `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
     `sid`         bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT '自习室id',
@@ -34,7 +34,7 @@ CREATE TABLE `seat_type`
   DEFAULT CHARSET = utf8 COMMENT ='自习室类型表';
 
 
-CREATE TABLE `buy_record`
+CREATE TABLE `buy_records`
 (
     `id`       bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
     `sid`      bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT '自习室id',
@@ -48,9 +48,9 @@ CREATE TABLE `buy_record`
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8 COMMENT ='购买记录表';
 
-INSERT INTO study_room
-values (1, '这是一个自习室');
-INSERT INTO seat_type
+INSERT INTO study_rooms
+values (1, '这是一个自习室', '加油鸭自习室');
+INSERT INTO seat_types
 values (1, 1, '{"按日缴费": 9,"按日缴费": 59,"按日缴费": 269}', '休闲舒适区[图片图片]', '休闲舒适区');
-INSERT INTO seatinfo
+INSERT INTO seatinfos
 values (1, 1, 1, 1676292591, 1676292591);

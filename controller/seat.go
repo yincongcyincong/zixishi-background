@@ -32,8 +32,8 @@ func GetSeatInfo(c *gin.Context) {
 	}
 
 	// c.JSON：返回JSON格式的数据
-	c.HTML(http.StatusOK, "main.html", gin.H{
-		"title":   "posts/index",
+	c.HTML(http.StatusOK, "seatinfo.html", gin.H{
+		"title":   "座位信息",
 		"records": records,
 		"count":   utils.NewPaginator(c.Request, number, count),
 	})
@@ -82,7 +82,7 @@ func UpdateSeatInfo(c *gin.Context) {
 		SeatTypeId: param.SeatTypeId,
 		UpdateTime: time.Now().Unix(),
 	}
-	result := config.DB.Save(dbParam)
+	result := config.DB.Model(dbParam).Update(dbParam)
 	if result.Error != nil {
 		log.Println(result.Error)
 		c.JSON(http.StatusOK, utils.Fail(utils.DBErrCode, utils.DBErrMsg, ""))
@@ -190,7 +190,7 @@ func UpdateSeatType(c *gin.Context) {
 		PriceIntro: param.PriceIntro,
 		Name:       param.Name,
 	}
-	result := config.DB.Save(dbParam)
+	result := config.DB.Model(dbParam).Update(dbParam)
 	if result.Error != nil {
 		log.Println(result.Error)
 		c.JSON(http.StatusOK, utils.Fail(utils.DBErrCode, utils.DBErrMsg, ""))
