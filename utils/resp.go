@@ -8,8 +8,8 @@ type Response struct {
 
 func Succ(data interface{}) *Response {
 	return &Response{
-		Code: 0,
-		Msg:  "success",
+		Code: SuccCode,
+		Msg:  SuccMsg,
 		Data: data,
 	}
 }

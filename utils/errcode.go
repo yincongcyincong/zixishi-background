@@ -4,10 +4,12 @@ const (
 	SuccCode     = 0
 	ParamErrCode = 1
 	DBErrCode    = 2
+	PassErrCode  = 3
 )
 
 const (
-	SuccMsg = "succ"
+	SuccMsg     = "succ"
 	ParamErrMsg = "param error"
-	DBErrMsg = "db error"
+	DBErrMsg    = "db error"
+	PassErrMsg  = "password error"
 )

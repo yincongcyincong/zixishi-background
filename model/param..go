@@ -30,3 +30,8 @@ type BuyRecordParam struct {
 	StartTime int64  `json:"start_time"`
 	BuyTime   int64  `json:"buy_time"`
 }
+
+type LoginParam struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}

@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"net/http"
 	"zixishi-background/controller"
+	"zixishi-background/middleware"
 	"zixishi-background/utils"
 )
 
@@ -18,8 +19,11 @@ func main() {
 }
 
 func initRouter(r *gin.Engine) {
-	r.LoadHTMLFiles("views/main.html", "views/seatinfo.html", "views/paginator.html")
+	r.LoadHTMLFiles("views/main.html", "views/seatinfo.html", "views/paginator.html", "views/login.html")
 	r.StaticFS("/static", http.Dir("./static"))
+
+	r.Use(middleware.AuthMiddleWare())
+
 	r.GET("/ping", controller.Ping)
 	r.GET("/main/default", controller.GetSeatInfo)
 

@@ -18,6 +18,9 @@ type Config struct {
 	AppSecret string
 
 	DBConf string
+
+	UserName string
+	Password string
 }
 
 func init() {
@@ -34,6 +37,8 @@ func initConfig() {
 	Conf.AppId = C.MustValue("wx", "appId", "")
 	Conf.AppSecret = C.MustValue("wx", "appSecret", "")
 	Conf.DBConf = C.MustValue("db", "DBConf", "")
+	Conf.UserName = C.MustValue("user", "username", "")
+	Conf.Password = C.MustValue("user", "password", "")
 }
 
 func initWxInfo() {
