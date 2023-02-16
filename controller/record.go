@@ -26,33 +26,19 @@ func AddBuyRecord(c *gin.Context) {
 		return
 	}
 
-	if param.BuyTime == 0 {
-		param.BuyTime = time.Now().Unix()
-	}
-
-	switch param.Type {
-	case 1:
-		param.EndTime += 24 * 60 * 60
-	case 2:
-		param.EndTime += 7 * 24 * 60 * 60
-	case 3:
-		param.EndTime += 31 * 24 * 60 * 60
-	case 4:
-		param.EndTime += 92 * 24 * 60 * 60
-	case 5:
-		param.EndTime += 183 * 24 * 60 * 60
-	case 6:
-		param.EndTime += 365 * 24 * 60 * 60
+	if param.StartTime == 0 {
+		param.StartTime = time.Now().Unix()
 	}
 
 	// c.JSON：返回JSON格式的数据
 	dbParam := &model.BuyRecord{
-		Sid:     param.Sid,
-		Uid:     param.Uid,
-		Uname:   param.Uname,
-		Price:   param.Price,
-		EndTime: param.EndTime,
-		BuyTime: param.BuyTime,
+		Sid:       param.Sid,
+		Uid:       param.Uid,
+		Uname:     param.Uname,
+		Price:     param.Price,
+		EndTime:   param.EndTime,
+		StartTime: param.StartTime,
+		BuyTime:   time.Now().Unix(),
 	}
 	result := config.DB.Create(dbParam)
 	if result.Error != nil {

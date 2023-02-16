@@ -23,11 +23,13 @@ type SeatType struct {
 }
 
 type BuyRecord struct {
-	ID      int64  `json:"id" gorm:"column:id"`
-	Sid     int64  `json:"sid"`
-	Uid     string `json:"uid"`
-	Uname   string `json:"uname"`
-	Price   int64  `json:"price"`
-	EndTime int64  `json:"end_time"`
-	BuyTime int64  `json:"buy_time"`
+	ID        int64  `json:"id" gorm:"column:id"`
+	Sid       int64  `json:"sid"`
+	SeatId int64 `json:"seat_id"`
+	Uid       string `json:"uid"`
+	Uname     string `json:"uname"`
+	Price     int64  `json:"price"`
+	EndTime   int64  `json:"end_time"`
+	StartTime int64  `json:"start_time"`
+	BuyTime   int64  `json:"buy_time"`
 }

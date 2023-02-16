@@ -21,11 +21,12 @@ type SeatTypeParam struct {
 }
 
 type BuyRecordParam struct {
-	Sid     int64  `json:"sid"`
-	Uid     string `json:"uid"`
-	Uname   string `json:"uname"`
-	Price   int64  `json:"price"`
-	EndTime int64  `json:"end_time"`
-	BuyTime int64  `json:"buy_time"`
-	Type    int    `json:"type"` // 1 一天 2 一周 3 一月 4 三个月 5 6个月 6 一年
+	Sid       int64  `json:"sid"`
+	SeatId    int64  `json:"seat_id"`
+	Uid       string `json:"uid"`
+	Uname     string `json:"uname"`
+	Price     int64  `json:"price"`
+	EndTime   int64  `json:"end_time"`
+	StartTime int64  `json:"start_time"`
+	BuyTime   int64  `json:"buy_time"`
 }

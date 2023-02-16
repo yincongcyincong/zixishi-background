@@ -24,7 +24,7 @@ func GetSeatInfo(c *gin.Context) {
 		return
 	}
 	var count int64
-	result = config.DB.Count(&count)
+	result = config.DB.Model(records).Count(&count)
 	if result.Error != nil {
 		log.Println(result.Error)
 		c.AbortWithStatus(http.StatusInternalServerError)

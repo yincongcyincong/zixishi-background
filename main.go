@@ -18,7 +18,7 @@ func main() {
 }
 
 func initRouter(r *gin.Engine) {
-	r.LoadHTMLFiles("views/main.html")
+	r.LoadHTMLFiles("views/main.html", "views/seatinfo.html", "views/paginator.html")
 	r.StaticFS("/static", http.Dir("./static"))
 	r.GET("/ping", controller.Ping)
 	r.GET("/main/default", controller.GetSeatInfo)

@@ -36,13 +36,15 @@ CREATE TABLE `seat_types`
 
 CREATE TABLE `buy_records`
 (
-    `id`       bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `sid`      bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT '自习室id',
-    `uid`      varchar(255)        not null DEFAULT '' COMMENT '用户微信凭证',
-    `uname`    varchar(255)        not null DEFAULT '' COMMENT '用户名',
-    `price`    int(10) unsigned    NOT NULL DEFAULT 0 COMMENT '购买，单位：分',
-    `end_time` int(10) unsigned    NOT NULL DEFAULT 0 COMMENT '到期时间',
-    `buy_time` int(10) unsigned    NOT NULL DEFAULT 0 COMMENT '购买时间',
+    `id`         bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `sid`        bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT '自习室id',
+    `seat_id`    bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT '座位id',
+    `uid`        varchar(255)        not null DEFAULT '' COMMENT '用户微信凭证',
+    `uname`      varchar(255)        not null DEFAULT '' COMMENT '用户名',
+    `price`      int(10) unsigned    NOT NULL DEFAULT 0 COMMENT '购买，单位：分',
+    `end_time`   int(10) unsigned    NOT NULL DEFAULT 0 COMMENT '到期时间',
+    `start_time` int(10) unsigned    NOT NULL DEFAULT 0 COMMENT '开始时间',
+    `buy_time`   int(10) unsigned    NOT NULL DEFAULT 0 COMMENT '购买时间',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
