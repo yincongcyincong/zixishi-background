@@ -14,7 +14,7 @@ var (
 )
 
 type Config struct {
-	AppId string
+	AppId     string
 	AppSecret string
 
 	DBConf string
@@ -31,7 +31,9 @@ func initConfig() {
 	if err != nil {
 		panic(err)
 	}
-	C.MustValue("wx", "appId", "")
+	Conf.AppId = C.MustValue("wx", "appId", "")
+	Conf.AppSecret = C.MustValue("wx", "appSecret", "")
+	Conf.DBConf = C.MustValue("wx", "DBConf", "")
 }
 
 func initWxInfo() {
@@ -42,15 +44,15 @@ func initWxInfo() {
 	}
 
 	SDK = weapp.NewClient(
-		"your-appid",
-		"your-secret",
+		Conf.AppId,
+		Conf.AppSecret,
 		weapp.WithAccessTokenSetter(tokenGetter),
 	)
 }
 
 func initDb() {
 	var err error
-	DB, err = gorm.Open("mysql", "root:forumapptest@tcp(10.11.80.36:3346)/study_room?charset=utf8&parseTime=True&loc=Local")
+	DB, err = gorm.Open("mysql", Conf.DBConf)
 	if err != nil {
 		panic("failed to connect database")
 	}
