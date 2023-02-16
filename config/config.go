@@ -10,7 +10,7 @@ import (
 var (
 	SDK  *weapp.Client
 	DB   *gorm.DB
-	Conf *Config
+	Conf  = new(Config)
 )
 
 type Config struct {
@@ -33,7 +33,7 @@ func initConfig() {
 	}
 	Conf.AppId = C.MustValue("wx", "appId", "")
 	Conf.AppSecret = C.MustValue("wx", "appSecret", "")
-	Conf.DBConf = C.MustValue("wx", "DBConf", "")
+	Conf.DBConf = C.MustValue("db", "DBConf", "")
 }
 
 func initWxInfo() {
@@ -54,6 +54,6 @@ func initDb() {
 	var err error
 	DB, err = gorm.Open("mysql", Conf.DBConf)
 	if err != nil {
-		panic("failed to connect database")
+		panic("failed to connect database"+ err.Error())
 	}
 }
