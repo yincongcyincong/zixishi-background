@@ -14,7 +14,7 @@ CREATE TABLE `seatinfos`
 CREATE TABLE `study_rooms`
 (
     `id`    bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `intro` text                not null DEFAULT '' COMMENT '介绍',
+    `intro` text                         default null COMMENT '介绍',
     `name`  varchar(255)        not null DEFAULT '' COMMENT '自习室名称',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
@@ -25,8 +25,8 @@ CREATE TABLE `seat_types`
 (
     `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
     `sid`         bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT '自习室id',
-    `price_intro` text                not null DEFAULT '' COMMENT '价格介绍，json格式',
-    `intro`       text                not null DEFAULT '' COMMENT '介绍',
+    `price_intro` text                         default null COMMENT '价格介绍，json格式',
+    `intro`       text                         default null COMMENT '介绍',
     `name`        varchar(255)        not null DEFAULT '' COMMENT '类型名称',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
