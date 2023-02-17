@@ -14,7 +14,7 @@ func AuthMiddleWare() gin.HandlerFunc {
 				return
 			}
 		}
-		if url := c.Request.URL.String(); url == "/login" || url == "/do_login" {
+		if url := c.Request.URL.String(); url == "/login" || url == "/do_login" || url == "/login/captcha" {
 			c.Next()
 			return
 		}
