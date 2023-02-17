@@ -25,7 +25,7 @@ func initRouter(r *gin.Engine) {
 
 	r.Use(middleware.AuthMiddleWare())
 
-	r.GET("/ping", controller.Ping)
+	r.GET("/", controller.Main)
 	r.GET("/main/default", controller.GetSeatInfo)
 
 	r.GET("/study_room/get", controller.GetStudyRoom)

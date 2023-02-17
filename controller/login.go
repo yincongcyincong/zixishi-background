@@ -44,7 +44,7 @@ func DoLogin(c *gin.Context) {
 		HttpOnly: true,
 	}
 	http.SetCookie(c.Writer, cookie)
-	c.JSON(http.StatusOK, utils.SuccWithUrl("/main/default"))
+	c.JSON(http.StatusOK, utils.SuccWithUrl("/"))
 }
 
 func Login(c *gin.Context) {

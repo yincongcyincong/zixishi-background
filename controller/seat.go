@@ -71,7 +71,7 @@ func GetSeatInfo(c *gin.Context) {
 	c.HTML(http.StatusOK, "seatinfo.html", gin.H{
 		"title":   "座位信息",
 		"records": records,
-		"count":   utils.NewPaginator(c.Request, number, count),
+		"paginator":   utils.NewPaginator(c.Request, number, count),
 	})
 
 }
@@ -178,7 +178,7 @@ func GetSeatType(c *gin.Context) {
 	c.HTML(http.StatusOK, "main.html", gin.H{
 		"title":   "posts/index",
 		"records": records,
-		"count":   utils.NewPaginator(c.Request, number, count),
+		"paginator":   utils.NewPaginator(c.Request, number, count),
 	})
 
 }

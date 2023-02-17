@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-func Ping(c *gin.Context) {
+func Main(c *gin.Context) {
 	// c.JSON：返回JSON格式的数据
 	c.HTML(http.StatusOK, "main.html", gin.H{
 		"title": "posts/index",

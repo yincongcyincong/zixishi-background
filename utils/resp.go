@@ -1,10 +1,10 @@
 package utils
 
 type Response struct {
-	Code int         `json:"code"`
-	Msg  string      `json:"msg"`
-	Data interface{} `json:"data"`
-	Url  string      `json:"url"`
+	Code     int               `json:"code"`
+	Msg      string            `json:"msg"`
+	Data     interface{}       `json:"data"`
+	Redirect map[string]string `json:"redirect"`
 }
 
 func Succ(data interface{}) *Response {
@@ -25,8 +25,8 @@ func Fail(code int, msg string, data interface{}) *Response {
 
 func SuccWithUrl(url string) *Response {
 	return &Response{
-		Code: SuccCode,
-		Msg:  SuccMsg,
-		Data: data,
+		Code:     SuccCode,
+		Msg:      SuccMsg,
+		Redirect: map[string]string{"url": url},
 	}
 }
