@@ -77,15 +77,15 @@
             <tbody>
             {{range $record := .records}}
             <tr>
-                <td class="center">{{$record.id}}</td>
-                <td>{{$record.study_room_name}}</td>
-                <td>{{$record.seat_type_name}}</td>
-                <td>{{$record.buy_time}}</td>
-                <td class="center">{{dateFormat $record.create_time "2006-01-02 15:04:05"}}</td>
-                <td class="center">{{dateFormat $record.update_time "2006-01-02 15:04:05"}}</td>
+                <td class="center">{{$record.ID}}</td>
+                <td>{{$record.StudyRoomName}}</td>
+                <td>{{$record.SeatTypeName}}</td>
+                <td>{{$record.BuyTime}}</td>
+                <td class="center">{{dateFormat $record.CreateTime "2006-01-02 15:04:05"}}</td>
+                <td class="center">{{dateFormat $record.UpdateTime "2006-01-02 15:04:05"}}</td>
                 <td class="center">
-                    <a name="edit" class="glyphicon glyphicon-edit" data-link="/seatinfo/update?id={{$record.id}}">修改</a>
-                    <a onclick="Layers.confirm('确定删除吗？', '/seatinfo/delete?group_id={{$record.id}}');" class="remove glyphicon glyphicon-trash">删除</a>
+                    <a name="edit" class="glyphicon glyphicon-edit" data-link="/seatinfo/update?id={{$record.ID}}">修改</a>
+                    <a onclick="Layers.confirm('确定删除吗？', '/seatinfo/delete?group_id={{$record.ID}}');" class="remove glyphicon glyphicon-trash">删除</a>
                 </td>
             </tr>
             {{end}}

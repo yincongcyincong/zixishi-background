@@ -75,7 +75,7 @@ func GetAllSeatTypeMap() (map[int64]*SeatType, error) {
 
 func GetBuyRecordMap() (map[int64][]*BuyRecord, error) {
 	buyRecords := make([]*BuyRecord, 0)
-	result := config.DB.Where("end_time >", time.Now().Unix()).Find(&buyRecords)
+	result := config.DB.Where("end_time > ?", time.Now().Unix()).Find(&buyRecords)
 	if result.Error != nil {
 		return nil, result.Error
 	}

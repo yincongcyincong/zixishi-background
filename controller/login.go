@@ -9,7 +9,6 @@ import (
 	"net/http"
 	"strings"
 	"zixishi-background/config"
-	"zixishi-background/model"
 	"zixishi-background/utils"
 )
 
@@ -24,15 +23,14 @@ func init() {
 }
 
 func DoLogin(c *gin.Context) {
-	param := new(model.LoginParam)
-	err := c.BindJSON(param)
-	if err != nil {
-		log.Println(err)
-		c.JSON(http.StatusOK, utils.Fail(utils.ParamErrCode, utils.ParamErrMsg, ""))
-		return
-	}
+	username := c.Param("username")
+	pwd := c.Param("password")
+	captchaStr := c.Param("captcha")
+	oriChapchat, _ := c.Cookie("captcha")
 
-	if param.Username != config.Conf.UserName && param.Password != config.Conf.Password {
+	log.Println(captchaStr == oriChapchat)
+
+	if username != config.Conf.UserName && pwd != config.Conf.Password {
 		log.Println("user or password unmatch")
 		c.JSON(http.StatusOK, utils.Fail(utils.PassErrCode, utils.PassErrMsg, ""))
 		return
@@ -46,7 +44,7 @@ func DoLogin(c *gin.Context) {
 		HttpOnly: true,
 	}
 	http.SetCookie(c.Writer, cookie)
-	c.JSON(http.StatusOK, utils.Succ(""))
+	c.JSON(http.StatusOK, utils.SuccWithUrl("/main/default"))
 }
 
 func Login(c *gin.Context) {

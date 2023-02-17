@@ -56,3 +56,5 @@ INSERT INTO seat_types
 values (1, 1, '{"按日缴费": 9,"按日缴费": 59,"按日缴费": 269}', '休闲舒适区[图片图片]', '休闲舒适区');
 INSERT INTO seatinfos
 values (1, 1, 1, 1676292591, 1676292591);
+INSERT INTO buy_records
+values (1, 1, 1, 'yiiiiii', 'yincong', 299, 1676292591, 1675292591, 1675292591);

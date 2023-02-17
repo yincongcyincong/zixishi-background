@@ -47,7 +47,7 @@ func initRouter(r *gin.Engine) {
 	r.POST("/buy_record/add", controller.AddBuyRecord)
 
 	r.GET("/login", controller.Login)
-	r.GET("/do_login", controller.DoLogin)
+	r.POST("/login", controller.DoLogin)
 	r.GET("/login/captcha", controller.Captcha)
 
 }

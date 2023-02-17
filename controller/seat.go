@@ -39,7 +39,7 @@ func GetSeatInfo(c *gin.Context) {
 		return
 	}
 
-	studyRoomMap, err := model.GetAllSeatTypeMap()
+	studyRoomMap, err := model.GetAllStudyRoomMap()
 	if err != nil {
 		log.Println(result.Error)
 		c.AbortWithStatus(http.StatusInternalServerError)

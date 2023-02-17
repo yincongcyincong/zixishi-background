@@ -1,7 +1,7 @@
 package utils
 
 const (
-	SuccCode     = 0
+	SuccCode     = 100
 	ParamErrCode = 1
 	DBErrCode    = 2
 	PassErrCode  = 3
