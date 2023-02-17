@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"html/template"
 	"net/http"
+	"zixishi-background/config"
 	"zixishi-background/controller"
 	"zixishi-background/middleware"
 	"zixishi-background/utils"
@@ -15,7 +16,7 @@ func main() {
 		"dateFormat": utils.NewDate().Format,
 	})
 	initRouter(r)
-	r.Run() // 监听并在 0.0.0.0:8080 上启动服务
+	r.Run(config.Conf.Port)
 }
 
 func initRouter(r *gin.Engine) {
