@@ -42,23 +42,23 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="input-group">
-                    <a href="/group/add" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> 添加项目组 </a>
+                    <a href="/seatinfo/add" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> 添加座位 </a>
                 </div>
             </div>
-            <form action="" method="get">
-                <div class="col-md-6">
-                    <div class="input-group">
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="input-group">
-                        <input class="form-control" name="keyword" type="text" value="{{.keyword}}" placeholder="项目组名称">
-				            <span class="input-group-btn">
-				              <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
-				            </span>
-                    </div>
-                </div>
-            </form>
+<!--            <form action="" method="get">-->
+<!--                <div class="col-md-6">-->
+<!--                    <div class="input-group">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-md-3">-->
+<!--                    <div class="input-group">-->
+<!--                        <input class="form-control" name="keyword" type="text" value="{{.keyword}}" placeholder="项目组名称">-->
+<!--				            <span class="input-group-btn">-->
+<!--				              <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>-->
+<!--				            </span>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </form>-->
         </div>
     </div>
     <div class="table-responsive">
@@ -66,24 +66,26 @@
             <thead>
             <tr>
                 <th class="w8p">ID</th>
-                <th class="w13p">名称</th>
-                <th>备注</th>
+                <th class="w13p">自习室名称</th>
+                <th class="w13p">自习室类型</th>
+                <th class="w13p">购买记录</th>
                 <th class="w13p">创建时间</th>
                 <th class="w13p">修改时间</th>
                 <th class="w15p">操作</th>
             </tr>
             </thead>
             <tbody>
-            {{range $group := .groups}}
+            {{range $record := .records}}
             <tr>
-                <td class="center">{{$group.group_id}}</td>
-                <td>{{$group.name}}</td>
-                <td>{{$group.comment}}</td>
-                <td class="center">{{dateFormat $group.create_time "2006-01-02 15:04:05"}}</td>
-                <td class="center">{{dateFormat $group.update_time "2006-01-02 15:04:05"}}</td>
+                <td class="center">{{$record.id}}</td>
+                <td>{{$record.study_room_name}}</td>
+                <td>{{$record.seat_type_name}}</td>
+                <td>{{$record.buy_time}}</td>
+                <td class="center">{{dateFormat $record.create_time "2006-01-02 15:04:05"}}</td>
+                <td class="center">{{dateFormat $record.update_time "2006-01-02 15:04:05"}}</td>
                 <td class="center">
-                    <a name="edit" class="glyphicon glyphicon-edit" data-link="/group/edit?group_id={{$group.group_id}}">修改</a>
-                    <a onclick="Layers.confirm('确定删除吗？', '/group/delete?group_id={{$group.group_id}}');" class="remove glyphicon glyphicon-trash">删除</a>
+                    <a name="edit" class="glyphicon glyphicon-edit" data-link="/seatinfo/update?id={{$record.id}}">修改</a>
+                    <a onclick="Layers.confirm('确定删除吗？', '/seatinfo/delete?group_id={{$record.id}}');" class="remove glyphicon glyphicon-trash">删除</a>
                 </td>
             </tr>
             {{end}}

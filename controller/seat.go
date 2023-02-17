@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
@@ -29,6 +30,41 @@ func GetSeatInfo(c *gin.Context) {
 		log.Println(result.Error)
 		c.AbortWithStatus(http.StatusInternalServerError)
 		return
+	}
+
+	seatTypeMap, err := model.GetAllSeatTypeMap()
+	if err != nil {
+		log.Println(result.Error)
+		c.AbortWithStatus(http.StatusInternalServerError)
+		return
+	}
+
+	studyRoomMap, err := model.GetAllSeatTypeMap()
+	if err != nil {
+		log.Println(result.Error)
+		c.AbortWithStatus(http.StatusInternalServerError)
+		return
+	}
+
+	buyRecordMap, err := model.GetBuyRecordMap()
+	if err != nil {
+		log.Println(result.Error)
+		c.AbortWithStatus(http.StatusInternalServerError)
+		return
+	}
+
+	for _, v := range records {
+		if _, ok := studyRoomMap[v.Sid]; ok {
+			v.StudyRoomName = studyRoomMap[v.Sid].Name
+		}
+		if _, ok := seatTypeMap[v.SeatTypeId]; ok {
+			v.SeatTypeName = seatTypeMap[v.SeatTypeId].Name
+		}
+		if _, ok := buyRecordMap[v.SeatTypeId]; ok {
+			for _, r := range buyRecordMap[v.SeatTypeId] {
+				v.BuyTime = fmt.Sprintf("%s-%s,", time.Unix(r.StartTime, 0).Format("2006-01-02"), time.Unix(r.EndTime, 0).Format("2006-01-02"))
+			}
+		}
 	}
 
 	// c.JSON：返回JSON格式的数据

@@ -18,9 +18,15 @@ func AuthMiddleWare() gin.HandlerFunc {
 			c.Next()
 			return
 		}
-		c.JSON(http.StatusUnauthorized, gin.H{
-			"error": "Unauthorized",
-		})
+
+		if c.ContentType() != "application/json" && c.Request.Method == http.MethodGet {
+			c.Redirect(http.StatusMovedPermanently, "/login")
+		} else {
+			c.JSON(http.StatusUnauthorized, gin.H{
+				"error": "Unauthorized",
+			})
+		}
+
 		c.Abort()
 		return
 	}
