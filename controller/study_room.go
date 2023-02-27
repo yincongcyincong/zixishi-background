@@ -39,6 +39,19 @@ func GetStudyRoom(c *gin.Context) {
 
 }
 
+func StudyRoomForm(c *gin.Context) {
+	id := c.Query("id")
+	studyRoom := new(model.StudyRoom)
+	config.DB.Where("id = ?", id).First(studyRoom)
+
+	// c.JSON：返回JSON格式的数据
+	c.HTML(http.StatusOK, "studyroom_form.html", gin.H{
+		"title":       "自习室信息信息",
+		"studyRoom":    studyRoom,
+	})
+
+}
+
 func AddStudyRoom(c *gin.Context) {
 	param := new(model.StudyRoomParam)
 	err := c.BindJSON(param)

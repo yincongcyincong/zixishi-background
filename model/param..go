@@ -21,6 +21,7 @@ type SeatTypeParam struct {
 }
 
 type BuyRecordParam struct {
+	ID        int64  `json:"id"`
 	Sid       int64  `json:"sid"`
 	SeatId    int64  `json:"seat_id"`
 	Uid       string `json:"uid"`

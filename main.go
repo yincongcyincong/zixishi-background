@@ -31,6 +31,7 @@ func initRouter(r *gin.Engine) {
 
 	r.GET("/study_room/get", controller.GetStudyRoom)
 	r.POST("/study_room/add", controller.AddStudyRoom)
+	r.GET("/study_room/form", controller.StudyRoomForm)
 	r.POST("/study_room/update", controller.UpdateStudyRoom)
 	r.POST("/study_room/del", controller.DeleteStudyRoom)
 
@@ -46,7 +47,9 @@ func initRouter(r *gin.Engine) {
 	r.POST("/seat_type/del", controller.DeleteSeatType)
 
 	r.GET("/buy_record/get", controller.GetRecord)
+	r.GET("/buy_record/form", controller.BuyRecordForm)
 	r.POST("/buy_record/add", controller.AddBuyRecord)
+	r.POST("/buy_record/update", controller.UpdateBuyRecord)
 
 	r.GET("/login", controller.Login)
 	r.POST("/login", controller.DoLogin)

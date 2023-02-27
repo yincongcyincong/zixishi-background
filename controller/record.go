@@ -79,3 +79,46 @@ func GetRecord(c *gin.Context) {
 	})
 
 }
+
+func UpdateBuyRecord(c *gin.Context) {
+	param := new(model.BuyRecordParam)
+	err := c.BindJSON(param)
+	if err != nil {
+		log.Println(err)
+		c.JSON(http.StatusOK, utils.Fail(utils.ParamErrCode, utils.ParamErrMsg, ""))
+		return
+	}
+
+	if param.StartTime == 0 {
+		param.StartTime = time.Now().Unix()
+	}
+
+	// c.JSON：返回JSON格式的数据
+	dbParam := &model.BuyRecord{
+		ID:        param.ID,
+		Sid:       param.Sid,
+		EndTime:   param.EndTime,
+		StartTime: param.StartTime,
+	}
+	result := config.DB.Model(dbParam).Update(dbParam)
+	if result.Error != nil {
+		log.Println(result.Error)
+		c.JSON(http.StatusOK, utils.Fail(utils.DBErrCode, utils.DBErrMsg, ""))
+		return
+	}
+
+	c.JSON(http.StatusOK, utils.Succ(""))
+}
+
+func BuyRecordForm(c *gin.Context) {
+	id := c.Query("id")
+	buyRecord := new(model.BuyRecord)
+	config.DB.Where("id = ?", id).First(buyRecord)
+
+	// c.JSON：返回JSON格式的数据
+	c.HTML(http.StatusOK, "buy_record.html", gin.H{
+		"title":     "购买记录",
+		"buyRecord": buyRecord,
+	})
+
+}

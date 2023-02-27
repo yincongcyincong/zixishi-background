@@ -11,8 +11,3 @@ func Main(c *gin.Context) {
 		"title": "posts/index",
 	})
 }
-
-func DEFAULT(c *gin.Context) {
-	// c.JSON：返回JSON格式的数据
-	c.String(http.StatusOK, "123")
-}
