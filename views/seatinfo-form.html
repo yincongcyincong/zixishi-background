@@ -1,0 +1,33 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <br>{{$seatinfo := .seatinfo}}
+        <form class="form-horizontal" method="post" action="{{if $seatinfo}} /seatinfo/update {{else}} /seatinfo/add {{end}}">
+            <div class="form-group">
+                <label class="col-sm-2 control-label"><span class="text-danger"> * </span> 座位ID </label>
+                <div class="col-sm-4">
+                    <input type="text" name="name" class="form-control" value="{{seatinfo.id}}" placeholder="座位ID" readonly>
+                </div>
+            </div>
+            <input type="hidden" name="group_id" class="form-control" value="{{$seatinfo.id}}">
+            <div class="form-group">
+                <label class="col-sm-2 control-label"><span class="text-danger"> * </span> 项目组</label>
+                <div class="col-sm-5">
+                    <select name="group_id" class="form-control">
+                        {{range $seatType := .seatTypeMap}}
+                        {{if $project}}
+                        <option value="{{$seatType.id}}" {{if eq $seatType.id $seatinfo.seatTypeId}} selected {{end}}>{{$seatType.name}}</option>
+                        {{else}}
+                        <option value="{{$seatType.id}}">{{$seatType.name}}</option>
+                        {{end}}
+                        {{end}}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" onclick="Form.ajaxSubmit(this.form, {{if $seatinfo}} true {{else}} false {{end}})" class="btn btn-primary">保存</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

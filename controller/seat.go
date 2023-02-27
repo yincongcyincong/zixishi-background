@@ -69,9 +69,29 @@ func GetSeatInfo(c *gin.Context) {
 
 	// c.JSON：返回JSON格式的数据
 	c.HTML(http.StatusOK, "seatinfo.html", gin.H{
-		"title":   "座位信息",
-		"records": records,
-		"paginator":   utils.NewPaginator(c.Request, number, count),
+		"title":     "座位信息",
+		"records":   records,
+		"paginator": utils.NewPaginator(c.Request, number, count),
+	})
+
+}
+
+func SeatInfoForm(c *gin.Context) {
+	seatinfo := new(model.Seatinfo)
+	result := config.DB.Where("id = ?", 20).First(&seatinfo)
+
+	seatTypeMap, err := model.GetAllSeatTypeMap()
+	if err != nil {
+		log.Println(result.Error)
+		c.AbortWithStatus(http.StatusInternalServerError)
+		return
+	}
+
+	// c.JSON：返回JSON格式的数据
+	c.HTML(http.StatusOK, "seatinfo-form.html", gin.H{
+		"title":       "座位信息",
+		"seatinfo":    seatinfo,
+		"seatTypeMap": seatTypeMap,
 	})
 
 }
@@ -176,9 +196,9 @@ func GetSeatType(c *gin.Context) {
 
 	// c.JSON：返回JSON格式的数据
 	c.HTML(http.StatusOK, "main.html", gin.H{
-		"title":   "posts/index",
-		"records": records,
-		"paginator":   utils.NewPaginator(c.Request, number, count),
+		"title":     "posts/index",
+		"records":   records,
+		"paginator": utils.NewPaginator(c.Request, number, count),
 	})
 
 }

@@ -20,7 +20,8 @@ func main() {
 }
 
 func initRouter(r *gin.Engine) {
-	r.LoadHTMLFiles("views/main.html", "views/seatinfo.html", "views/paginator.html", "views/login.html")
+	r.LoadHTMLFiles("views/main.html", "views/seatinfo.html", "views/paginator.html", "views/login.html",
+		"seatinfo-forum.html")
 	r.StaticFS("/static", http.Dir("./static"))
 
 	r.Use(middleware.AuthMiddleWare())
@@ -35,6 +36,7 @@ func initRouter(r *gin.Engine) {
 
 	r.GET("/seatinfo/get", controller.GetSeatInfo)
 	r.POST("/seatinfo/add", controller.AddSeatInfo)
+	r.POST("/seatinfo/form", controller.SeatInfoForm)
 	r.POST("/seatinfo/update", controller.UpdateSeatInfo)
 	r.POST("/seatinfo/del", controller.DeleteSeatInfo)
 
