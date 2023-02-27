@@ -77,8 +77,9 @@ func GetSeatInfo(c *gin.Context) {
 }
 
 func SeatInfoForm(c *gin.Context) {
+	id := c.Query("id")
 	seatinfo := new(model.Seatinfo)
-	result := config.DB.Where("id = ?", 20).First(&seatinfo)
+	result := config.DB.Where("id = ?", id).First(seatinfo)
 
 	seatTypeMap, err := model.GetAllSeatTypeMap()
 	if err != nil {
