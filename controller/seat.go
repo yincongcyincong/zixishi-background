@@ -88,7 +88,7 @@ func SeatInfoForm(c *gin.Context) {
 	}
 
 	// c.JSON：返回JSON格式的数据
-	c.HTML(http.StatusOK, "seatinfo-form.html", gin.H{
+	c.HTML(http.StatusOK, "seatinfo_form.html", gin.H{
 		"title":       "座位信息",
 		"seatinfo":    seatinfo,
 		"seatTypeMap": seatTypeMap,

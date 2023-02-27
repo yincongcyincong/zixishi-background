@@ -84,8 +84,8 @@
                 <td class="center">{{dateFormat $record.CreateTime "2006-01-02 15:04:05"}}</td>
                 <td class="center">{{dateFormat $record.UpdateTime "2006-01-02 15:04:05"}}</td>
                 <td class="center">
-                    <a name="edit" class="glyphicon glyphicon-edit" data-link="/seatinfo/update?id={{$record.ID}}">修改</a>
-                    <a onclick="Layers.confirm('确定删除吗？', '/seatinfo/delete?group_id={{$record.ID}}');" class="remove glyphicon glyphicon-trash">删除</a>
+                    <a name="edit" class="glyphicon glyphicon-edit" data-link="/seatinfo/form?id={{$record.ID}}">修改</a>
+                    <a onclick="Layers.confirm('确定删除吗？', '/seatinfo/delete?id={{$record.ID}}');" class="remove glyphicon glyphicon-trash">删除</a>
                 </td>
             </tr>
             {{end}}

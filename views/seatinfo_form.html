@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>{{.title}}</title>
+    <link rel="stylesheet" href="/static/style/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/style/jquery-chosen/bootstrap-chosen.css">
+    <link rel="stylesheet" href="/static/style/bootstrap-select/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="/static/style/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/style/morris/morris.css">
+
+    <script src="/static/style/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="/static/style/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/style/jquery-chosen/chosen.jquery.min.js"></script>
+    <script src="/static/style/bootstrap-select/js/bootstrap-select.min.js"></script>
+    <script src="/static/style/bootstrap-select/js/i18n/defaults-zh_CN.min.js"></script>
+    <script src="/static/style/morris/raphael.min.js"></script>
+    <script src="/static/style/morris/morris.min.js"></script>
+    <script src="/static/style/layui/layer/layer.js"></script>
+    <script src="/static/style/jquery/jquery.form.js"></script>
+    <script src="/static/style/common/layers.js"></script>
+    <script src="/static/style/common/form.js"></script>
+    <script src="/static/style/common/common.js"></script>
+    <script src="/static/style/common/date.js"></script>
+    <script src="/static/style/module/main.js"></script>
+
+    <link rel="stylesheet" href="/static/style/content-style.css">
+</head>
+
+<body style="margin:0 8px 0 0;overflow-x: hidden;overflow-y:auto;">
+<div id="failedBox" style="margin-bottom: 10px" class="hide"></div>
+
+
+
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <br>{{$seatinfo := .seatinfo}}
+        <form class="form-horizontal" method="post" action="{{if $seatinfo}} /seatinfo/update {{else}} /seatinfo/add {{end}}">
+            <div class="form-group">
+                <label class="col-sm-2 control-label"><span class="text-danger"> * </span> 座位ID </label>
+                <div class="col-sm-4">
+                    <input type="text" name="name" class="form-control" value="{{$seatinfo.ID}}" placeholder="座位ID" readonly>
+                </div>
+            </div>
+            <input type="hidden" name="group_id" class="form-control" value="{{$seatinfo.ID}}">
+            <div class="form-group">
+                <label class="col-sm-2 control-label"><span class="text-danger"> * </span> 座位类型</label>
+                <div class="col-sm-5">
+                    <select name="group_id" class="form-control">
+                        {{range $seatType := .seatTypeMap}}
+                        {{if $seatinfo}}
+                        <option value="{{$seatType.ID}}" {{if eq $seatType.ID $seatinfo.SeatTypeId}} selected {{end}}>{{$seatType.Name}}</option>
+                        {{else}}
+                        <option value="{{$seatType.ID}}">{{$seatType.Name}}</option>
+                        {{end}}
+                        {{end}}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" onclick="Form.ajaxSubmit(this.form, {{if $seatinfo}} true {{else}} false {{end}})" class="btn btn-primary">保存</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+</body>
+
+</html>
