@@ -21,7 +21,7 @@ func main() {
 
 func initRouter(r *gin.Engine) {
 	r.LoadHTMLFiles("views/main.html", "views/seatinfo.html", "views/paginator.html", "views/login.html",
-		"views/seatinfo_form.html")
+		"views/seatinfo_form.html","views/studyroom_form.html","views/studyroom.html")
 	r.StaticFS("/static", http.Dir("./static"))
 
 	r.Use(middleware.AuthMiddleWare())

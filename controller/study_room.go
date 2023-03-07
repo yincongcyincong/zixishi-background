@@ -23,7 +23,7 @@ func GetStudyRoom(c *gin.Context) {
 		return
 	}
 	var count int64
-	result = config.DB.Count(&count)
+	result = config.DB.Table("study_rooms").Count(&count)
 	if result.Error != nil {
 		log.Println(result.Error)
 		c.AbortWithStatus(http.StatusInternalServerError)
@@ -31,7 +31,7 @@ func GetStudyRoom(c *gin.Context) {
 	}
 
 	// c.JSON：返回JSON格式的数据
-	c.HTML(http.StatusOK, "main.html", gin.H{
+	c.HTML(http.StatusOK, "studyroom.html", gin.H{
 		"title":   "posts/index",
 		"records": records,
 		"count":   utils.NewPaginator(c.Request, number, count),

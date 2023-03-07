@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>{{.title}}</title>
+    <link rel="stylesheet" href="/static/style/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/style/jquery-chosen/bootstrap-chosen.css">
+    <link rel="stylesheet" href="/static/style/bootstrap-select/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="/static/style/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/style/morris/morris.css">
+
+    <script src="/static/style/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="/static/style/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/style/jquery-chosen/chosen.jquery.min.js"></script>
+    <script src="/static/style/bootstrap-select/js/bootstrap-select.min.js"></script>
+    <script src="/static/style/bootstrap-select/js/i18n/defaults-zh_CN.min.js"></script>
+    <script src="/static/style/morris/raphael.min.js"></script>
+    <script src="/static/style/morris/morris.min.js"></script>
+    <script src="/static/style/layui/layer/layer.js"></script>
+    <script src="/static/style/jquery/jquery.form.js"></script>
+    <script src="/static/style/common/layers.js"></script>
+    <script src="/static/style/common/form.js"></script>
+    <script src="/static/style/common/common.js"></script>
+    <script src="/static/style/common/date.js"></script>
+    <script src="/static/style/module/main.js"></script>
+
+    <link rel="stylesheet" href="/static/style/content-style.css">
+</head>
+
+<body style="margin:0 8px 0 0;overflow-x: hidden;overflow-y:auto;">
+<div id="failedBox" style="margin-bottom: 10px" class="hide"></div>
+
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="input-group">
+                    <a href="/study_room/form" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> 添加座位 </a>
+                </div>
+            </div>
+            <!--            <form action="" method="get">-->
+            <!--                <div class="col-md-6">-->
+            <!--                    <div class="input-group">-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--                <div class="col-md-3">-->
+            <!--                    <div class="input-group">-->
+            <!--                        <input class="form-control" name="keyword" type="text" value="{{.keyword}}" placeholder="项目组名称">-->
+            <!--				            <span class="input-group-btn">-->
+            <!--				              <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>-->
+            <!--				            </span>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </form>-->
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th class="w8p">ID</th>
+                <th class="w13p">自习室名称</th>
+                <th class="w15p">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{range $record := .records}}
+            <tr>
+                <td class="center">{{$record.ID}}</td>
+                <td>{{$record.Name}}</td>
+                <td class="center">
+                    <a name="edit" class="glyphicon glyphicon-edit" data-link="/study_room/form?id={{$record.ID}}">修改</a>
+                    <a onclick="Layers.confirm('确定删除吗？', '/study_room/delete?id={{$record.ID}}');" class="remove glyphicon glyphicon-trash">删除</a>
+                </td>
+            </tr>
+            {{end}}
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer">
+        {{template "paginator.html" .}}
+    </div>
+</div>
+<script type="text/javascript">
+    Layers.bindIframe("[name='edit']", "修改项目组信息", "400px", "850px")
+</script>
+</body>
+
+</html>

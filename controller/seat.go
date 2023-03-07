@@ -231,6 +231,20 @@ func AddSeatType(c *gin.Context) {
 
 }
 
+func SeatTypeForm(c *gin.Context) {
+	id := c.Query("id")
+	seatType := new(model.SeatType)
+	config.DB.Where("id = ?", id).First(seatType)
+
+	// c.JSON：返回JSON格式的数据
+	c.HTML(http.StatusOK, "seatinfo_form.html", gin.H{
+		"title":       "座位信息",
+		"seatType":    seatType,
+	})
+
+}
+
+
 func UpdateSeatType(c *gin.Context) {
 	param := new(model.SeatTypeParam)
 	err := c.BindJSON(param)
