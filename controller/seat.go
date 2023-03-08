@@ -195,6 +195,19 @@ func GetSeatType(c *gin.Context) {
 		return
 	}
 
+	studyRoomMap, err := model.GetAllStudyRoomMap()
+	if err != nil {
+		log.Println(result.Error)
+		c.AbortWithStatus(http.StatusInternalServerError)
+		return
+	}
+
+	for _, v := range records {
+		if _, ok := studyRoomMap[v.Sid]; ok {
+			v.StudyRoomName = studyRoomMap[v.Sid].Name
+		}
+	}
+
 	// c.JSON：返回JSON格式的数据
 	c.HTML(http.StatusOK, "main.html", gin.H{
 		"title":     "posts/index",

@@ -34,7 +34,7 @@ func GetStudyRoom(c *gin.Context) {
 	c.HTML(http.StatusOK, "studyroom.html", gin.H{
 		"title":   "posts/index",
 		"records": records,
-		"count":   utils.NewPaginator(c.Request, number, count),
+		"paginator":   utils.NewPaginator(c.Request, number, count),
 	})
 
 }
