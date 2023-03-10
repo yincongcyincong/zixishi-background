@@ -32,29 +32,32 @@ func GetStudyRoom(c *gin.Context) {
 
 	// c.JSON：返回JSON格式的数据
 	c.HTML(http.StatusOK, "studyroom.html", gin.H{
-		"title":   "posts/index",
-		"records": records,
-		"paginator":   utils.NewPaginator(c.Request, number, count),
+		"title":     "posts/index",
+		"records":   records,
+		"paginator": utils.NewPaginator(c.Request, number, count),
 	})
 
 }
 
 func StudyRoomForm(c *gin.Context) {
+	var studyRoom *model.StudyRoom
 	id := c.Query("id")
-	studyRoom := new(model.StudyRoom)
-	config.DB.Where("id = ?", id).First(studyRoom)
+	if id != "" {
+		studyRoom = new(model.StudyRoom)
+		config.DB.Where("id = ?", id).First(studyRoom)
+	}
 
 	// c.JSON：返回JSON格式的数据
 	c.HTML(http.StatusOK, "studyroom_form.html", gin.H{
-		"title":       "自习室信息信息",
-		"studyRoom":    studyRoom,
+		"title":     "自习室信息信息",
+		"studyRoom": studyRoom,
 	})
 
 }
 
 func AddStudyRoom(c *gin.Context) {
 	param := new(model.StudyRoomParam)
-	err := c.BindJSON(param)
+	err := c.Bind(param)
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusOK, utils.Fail(utils.ParamErrCode, utils.ParamErrMsg, ""))
@@ -73,13 +76,13 @@ func AddStudyRoom(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, utils.Succ(""))
+	c.JSON(http.StatusOK, utils.SuccWithUrl("/study_room/get"))
 
 }
 
 func UpdateStudyRoom(c *gin.Context) {
 	param := new(model.StudyRoomParam)
-	err := c.BindJSON(param)
+	err := c.Bind(param)
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusOK, utils.Fail(utils.ParamErrCode, utils.ParamErrMsg, ""))
@@ -99,13 +102,13 @@ func UpdateStudyRoom(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, utils.Succ(""))
+	c.JSON(http.StatusOK, utils.SuccWithUrl("/study_room/get"))
 
 }
 
 func DeleteStudyRoom(c *gin.Context) {
 	param := new(model.StudyRoomParam)
-	err := c.BindJSON(param)
+	err := c.Bind(param)
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusOK, utils.Fail(utils.ParamErrCode, utils.ParamErrMsg, ""))
@@ -123,6 +126,6 @@ func DeleteStudyRoom(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, utils.Succ(""))
+	c.JSON(http.StatusOK, utils.SuccWithUrl("/study_room/get"))
 
 }

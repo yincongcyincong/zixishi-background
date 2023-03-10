@@ -1,9 +1,9 @@
 package model
 
 type StudyRoomParam struct {
-	ID    int64  `json:"id"`
-	Intro string `json:"intro"`
-	Name  string `json:"name"`
+	ID    int64  `json:"id" form:"id"`
+	Intro string `json:"intro" form:"intro"`
+	Name  string `json:"name" form:"name"`
 }
 
 type SeatinfoParam struct {

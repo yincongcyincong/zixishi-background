@@ -13,7 +13,7 @@ import (
 func AddBuyRecord(c *gin.Context) {
 
 	param := new(model.BuyRecordParam)
-	err := c.BindJSON(param)
+	err := c.BindQuery(param)
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusOK, utils.Fail(utils.ParamErrCode, utils.ParamErrMsg, ""))
@@ -82,7 +82,7 @@ func GetRecord(c *gin.Context) {
 
 func UpdateBuyRecord(c *gin.Context) {
 	param := new(model.BuyRecordParam)
-	err := c.BindJSON(param)
+	err := c.BindQuery(param)
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusOK, utils.Fail(utils.ParamErrCode, utils.ParamErrMsg, ""))

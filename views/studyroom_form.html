@@ -50,20 +50,14 @@
     <div class="panel-body">
         <br>{{$studyRoom := .studyRoom}}
         <form class="form-horizontal" method="post" action="{{if $studyRoom}} /study_room/update {{else}} /study_room/add {{end}}">
-            <div class="form-group">
-                <label class="col-sm-2 control-label"><span class="text-danger"> * </span> 自习室ID </label>
-                <div class="col-sm-4">
-                    <input type="text" name="show_id" class="form-control" value="{{$studyRoom.ID}}" placeholder="座位ID" readonly>
-                </div>
-            </div>
-            <input type="hidden" name="id" class="form-control" value="{{$studyRoom.ID}}">
+            <input type="hidden" name="id" class="form-control" value="{{if $studyRoom}}{{$studyRoom.ID}}{{end}}">
             <div class="form-group">
                 <label class="col-sm-2 control-label"><span class="text-danger"> * </span> 名称 </label>
                 <div class="col-sm-4">
-                    <input type="text" name="name" class="form-control" value="{{$studyRoom.Name}}" placeholder="请输入名称" required>
+                    <input type="text" name="name" class="form-control" value="{{if $studyRoom}}{{$studyRoom.Name}}{{end}}" placeholder="请输入名称" required>
                 </div>
             </div>
-            <input name="intro" class="form-control" rows="6" type="hidden" value="{{$studyRoom.Intro}}">
+            <input name="intro" class="form-control" rows="6" type="hidden" value="{{if $studyRoom}}{{$studyRoom.Intro}}{{end}}">
             <div id="editor—wrapper">
                 <div id="toolbar-container"><!-- 工具栏 --></div>
                 <div id="editor-container"><!-- 编辑器 --></div>
@@ -91,12 +85,12 @@ const editorConfig = {
 }
 
 editorConfig.MENU_CONF['uploadImage'] = {
-     server: '/api/upload',
+     server: '/img/upload',
 }
 
 const editor = createEditor({
     selector: '#editor-container',
-    html: '{{$studyRoom.Intro}}',
+    html: '{{if $studyRoom}}{{$studyRoom.Intro}}{{end}}',
     config: editorConfig,
     mode: 'default', // or 'simple'
 })

@@ -34,19 +34,19 @@ func initRouter(r *gin.Engine) {
 	r.POST("/study_room/add", controller.AddStudyRoom)
 	r.GET("/study_room/form", controller.StudyRoomForm)
 	r.POST("/study_room/update", controller.UpdateStudyRoom)
-	r.POST("/study_room/del", controller.DeleteStudyRoom)
+	r.POST("/study_room/delete", controller.DeleteStudyRoom)
 
 	r.GET("/seatinfo/get", controller.GetSeatInfo)
 	r.POST("/seatinfo/add", controller.AddSeatInfo)
 	r.GET("/seatinfo/form", controller.SeatInfoForm)
 	r.POST("/seatinfo/update", controller.UpdateSeatInfo)
-	r.POST("/seatinfo/del", controller.DeleteSeatInfo)
+	r.POST("/seatinfo/delete", controller.DeleteSeatInfo)
 
 	r.GET("/seat_type/get", controller.GetSeatType)
 	r.POST("/seat_type/add", controller.AddSeatType)
 	r.POST("/seat_type/form", controller.SeatTypeForm)
 	r.POST("/seat_type/update", controller.UpdateSeatType)
-	r.POST("/seat_type/del", controller.DeleteSeatType)
+	r.POST("/seat_type/delete", controller.DeleteSeatType)
 
 	r.GET("/buy_record/get", controller.GetRecord)
 	r.GET("/buy_record/form", controller.BuyRecordForm)
@@ -56,5 +56,7 @@ func initRouter(r *gin.Engine) {
 	r.GET("/login", controller.Login)
 	r.POST("/login", controller.DoLogin)
 	r.GET("/login/captcha", controller.Captcha)
+
+	r.POST("/img/upload", controller.Upload)
 
 }

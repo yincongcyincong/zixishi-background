@@ -99,7 +99,7 @@ func SeatInfoForm(c *gin.Context) {
 
 func AddSeatInfo(c *gin.Context) {
 	param := new(model.SeatinfoParam)
-	err := c.BindJSON(param)
+	err := c.BindQuery(param)
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusOK, utils.Fail(utils.ParamErrCode, utils.ParamErrMsg, ""))
@@ -126,7 +126,7 @@ func AddSeatInfo(c *gin.Context) {
 
 func UpdateSeatInfo(c *gin.Context) {
 	param := new(model.SeatinfoParam)
-	err := c.BindJSON(param)
+	err := c.BindQuery(param)
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusOK, utils.Fail(utils.ParamErrCode, utils.ParamErrMsg, ""))
@@ -152,7 +152,7 @@ func UpdateSeatInfo(c *gin.Context) {
 
 func DeleteSeatInfo(c *gin.Context) {
 	param := new(model.SeatinfoParam)
-	err := c.BindJSON(param)
+	err := c.BindQuery(param)
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusOK, utils.Fail(utils.ParamErrCode, utils.ParamErrMsg, ""))
@@ -219,7 +219,7 @@ func GetSeatType(c *gin.Context) {
 
 func AddSeatType(c *gin.Context) {
 	param := new(model.SeatTypeParam)
-	err := c.BindJSON(param)
+	err := c.BindQuery(param)
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusOK, utils.Fail(utils.ParamErrCode, utils.ParamErrMsg, ""))
@@ -260,7 +260,7 @@ func SeatTypeForm(c *gin.Context) {
 
 func UpdateSeatType(c *gin.Context) {
 	param := new(model.SeatTypeParam)
-	err := c.BindJSON(param)
+	err := c.BindQuery(param)
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusOK, utils.Fail(utils.ParamErrCode, utils.ParamErrMsg, ""))
@@ -287,7 +287,7 @@ func UpdateSeatType(c *gin.Context) {
 
 func DeleteSeatType(c *gin.Context) {
 	param := new(model.SeatTypeParam)
-	err := c.BindJSON(param)
+	err := c.BindQuery(param)
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusOK, utils.Fail(utils.ParamErrCode, utils.ParamErrMsg, ""))
