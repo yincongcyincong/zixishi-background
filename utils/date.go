@@ -25,6 +25,8 @@ func (date *Date) Format(unixTime interface{}, format string) string {
 			convertTime = int64(unixTime.(int16))
 		case int32:
 			convertTime = int64(unixTime.(int32))
+		case int64:
+			convertTime = unixTime.(int64)
 	}
 	return time.Unix(convertTime, 0).Format(format)
 }

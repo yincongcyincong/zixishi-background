@@ -27,8 +27,8 @@ type BuyRecordParam struct {
 	Uid       string `json:"uid"`
 	Uname     string `json:"uname" form:"uname"`
 	Price     int64  `json:"price" form:"price"`
-	EndTime   int64  `json:"end_time"`
-	StartTime int64  `json:"start_time"`
+	EndTime   int64  `json:"end_time" form:"end_time"`
+	StartTime int64  `json:"start_time" form:"start_time"`
 	BuyTime   int64  `json:"buy_time"`
 }
 

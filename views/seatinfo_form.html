@@ -46,7 +46,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label"><span class="text-danger"> * </span> 座位ID </label>
                 <div class="col-sm-4">
-                    <input type="text" name="show_id" class="form-control" value="{{$seatinfo.ID}}" placeholder="座位ID" readonly>
+                    <input type="text" name="show_id" class="form-control" value="{{if ne $seatinfo.ID 0}}{{$seatinfo.ID}}{{end}}" placeholder="座位ID" readonly>
                 </div>
             </div>
             <input type="hidden" name="id" class="form-control" value="{{$seatinfo.ID}}">

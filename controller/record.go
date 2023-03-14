@@ -111,6 +111,7 @@ func UpdateBuyRecord(c *gin.Context) {
 		ID:        param.ID,
 		Sid:       param.Sid,
 		Uname:     param.Uname,
+		Price:     param.Price,
 		EndTime:   param.EndTime,
 		StartTime: param.StartTime,
 	}
@@ -128,6 +129,11 @@ func BuyRecordForm(c *gin.Context) {
 	id := c.Query("id")
 	buyRecord := new(model.BuyRecord)
 	config.DB.Where("id = ?", id).First(buyRecord)
+
+	if id == "" {
+		buyRecord.StartTime = time.Now().Unix()
+		buyRecord.EndTime = time.Now().Unix()
+	}
 
 	// c.JSON：返回JSON格式的数据
 	c.HTML(http.StatusOK, "buy_record_form.html", gin.H{
