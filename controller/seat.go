@@ -80,18 +80,18 @@ func GetSeatInfo(c *gin.Context) {
 func SeatInfoForm(c *gin.Context) {
 	id := c.Query("id")
 	seatinfo := new(model.Seatinfo)
-	result := config.DB.Where("id = ?", id).First(seatinfo)
+	config.DB.Where("id = ?", id).First(seatinfo)
 
 	seatTypeMap, err := model.GetAllSeatTypeMap()
 	if err != nil {
-		log.Println(result.Error)
+		log.Println(err)
 		c.AbortWithStatus(http.StatusInternalServerError)
 		return
 	}
 
 	studyRoomMap, err := model.GetAllStudyRoomMap()
 	if err != nil {
-		log.Println(result.Error)
+		log.Println(err)
 		c.AbortWithStatus(http.StatusInternalServerError)
 		return
 	}
@@ -168,6 +168,11 @@ func DeleteSeatInfo(c *gin.Context) {
 		return
 	}
 
+	if param.ID == 0 {
+		c.JSON(http.StatusOK, utils.Fail(utils.ParamErrCode, utils.ParamErrMsg, ""))
+		return
+	}
+
 	// c.JSON：返回JSON格式的数据
 	dbParam := &model.Seatinfo{
 		ID: param.ID,
@@ -206,7 +211,7 @@ func GetSeatType(c *gin.Context) {
 
 	studyRoomMap, err := model.GetAllStudyRoomMap()
 	if err != nil {
-		log.Println(result.Error)
+		log.Println(err)
 		c.AbortWithStatus(http.StatusInternalServerError)
 		return
 	}
@@ -236,6 +241,16 @@ func AddSeatType(c *gin.Context) {
 		return
 	}
 
+	fmt.Println(fmt.Sprintf("%+v", param))
+
+	priceInfo := make(map[string]int64)
+	for idx, val := range param.Key {
+		priceInfo[val] = param.Price[idx]
+	}
+
+	tmp, _ := json.Marshal(priceInfo)
+	param.PriceIntro = string(tmp)
+
 	// c.JSON：返回JSON格式的数据
 	dbParam := &model.SeatType{
 		Sid:        param.Sid,
@@ -259,10 +274,22 @@ func SeatTypeForm(c *gin.Context) {
 	seatType := new(model.SeatType)
 	config.DB.Where("id = ?", id).First(seatType)
 
+	if seatType.PriceIntro != "" {
+		json.Unmarshal([]byte(seatType.PriceIntro), &seatType.PriceInfo)
+	}
+
+	studyRoomMap, err := model.GetAllStudyRoomMap()
+	if err != nil {
+		log.Println(err)
+		c.AbortWithStatus(http.StatusInternalServerError)
+		return
+	}
+
 	// c.JSON：返回JSON格式的数据
 	c.HTML(http.StatusOK, "seat_type_form.html", gin.H{
-		"title":    "座位信息",
-		"seatType": seatType,
+		"title":        "座位类型信息",
+		"seatType":     seatType,
+		"studyRoomMap": studyRoomMap,
 	})
 
 }
@@ -275,6 +302,14 @@ func UpdateSeatType(c *gin.Context) {
 		c.JSON(http.StatusOK, utils.Fail(utils.ParamErrCode, utils.ParamErrMsg, ""))
 		return
 	}
+
+	priceInfo := make(map[string]int64)
+	for idx, val := range param.Key {
+		priceInfo[val] = param.Price[idx]
+	}
+
+	tmp, _ := json.Marshal(priceInfo)
+	param.PriceIntro = string(tmp)
 
 	// c.JSON：返回JSON格式的数据
 	dbParam := &model.SeatType{
@@ -299,6 +334,11 @@ func DeleteSeatType(c *gin.Context) {
 	err := c.Bind(param)
 	if err != nil {
 		log.Println(err)
+		c.JSON(http.StatusOK, utils.Fail(utils.ParamErrCode, utils.ParamErrMsg, ""))
+		return
+	}
+
+	if param.ID == 0 {
 		c.JSON(http.StatusOK, utils.Fail(utils.ParamErrCode, utils.ParamErrMsg, ""))
 		return
 	}

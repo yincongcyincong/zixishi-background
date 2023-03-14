@@ -27,6 +27,7 @@ func initRouter(r *gin.Engine) {
 
 	r.Use(middleware.AuthMiddleWare())
 
+	r.GET("/", controller.Main)
 	r.GET("/main", controller.Main)
 	r.GET("/main/default", controller.GetSeatInfo)
 

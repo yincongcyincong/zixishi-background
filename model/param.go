@@ -7,17 +7,19 @@ type StudyRoomParam struct {
 }
 
 type SeatinfoParam struct {
-	ID         int64 `json:"id"`
-	Sid        int64 `json:"sid"`
-	SeatTypeId int64 `json:"seat_type_id"`
+	ID         int64 `json:"id" form:"id"`
+	Sid        int64 `json:"sid" form:"sid"`
+	SeatTypeId int64 `json:"seat_type_id" form:"seat_type_id"`
 }
 
 type SeatTypeParam struct {
-	ID         int64  `json:"id"`
-	Sid        int64  `json:"sid"`
-	Intro      string `json:"intro"`
-	PriceIntro string `json:"price_intro"`
-	Name       string `json:"name"`
+	ID         int64    `json:"id" form:"id"`
+	Sid        int64    `json:"sid" form:"sid"`
+	Intro      string   `json:"intro"`
+	PriceIntro string   `json:"price_intro"`
+	Name       string   `json:"name" form:"name"`
+	Key        []string `json:"key" form:"key"`
+	Price      []int64  `json:"price" form:"price"`
 }
 
 type BuyRecordParam struct {

@@ -80,7 +80,7 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="button" onclick="Form.ajaxSubmit(this.form, {{if $seatinfo}} true {{else}} false {{end}})" class="btn btn-primary">保存</button>
+                    <button type="button" onclick="Form.ajaxSubmit(this.form, {{if ne $seatinfo.ID 0}} true {{else}} false {{end}})" class="btn btn-primary">保存</button>
                 </div>
             </div>
         </form>

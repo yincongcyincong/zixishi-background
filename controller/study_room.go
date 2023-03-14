@@ -115,6 +115,11 @@ func DeleteStudyRoom(c *gin.Context) {
 		return
 	}
 
+	if param.ID == 0 {
+		c.JSON(http.StatusOK, utils.Fail(utils.ParamErrCode, utils.ParamErrMsg, ""))
+		return
+	}
+
 	// c.JSON：返回JSON格式的数据
 	dbParam := &model.StudyRoom{
 		ID: param.ID,

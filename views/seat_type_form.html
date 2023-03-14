@@ -37,19 +37,20 @@
 <div id="failedBox" style="margin-bottom: 10px" class="hide"></div>
 
 
-
-
 <div class="panel panel-default">
     <div class="panel-body">
-        <br>{{$seat_type := .seat_type}}
-        <form class="form-horizontal" method="post" action="{{if ne $seat_type.ID 0 }} /seat_type/update {{else}} /seat_type/add {{end}}">
+        <br>{{$seat_type := .seatType}}
+        <form class="form-horizontal" method="post"
+              action="{{if ne $seat_type.ID 0 }} /seat_type/update {{else}} /seat_type/add {{end}}">
             <div class="form-group">
                 <label class="col-sm-2 control-label"><span class="text-danger"> * </span> 自习室</label>
                 <div class="col-sm-5">
-                    <select name="group_id" class="form-control" {{if ne $seat_type.ID 0}}disabled="disabled"{{end}}>
+                    <select name="sid" class="form-control" {{if ne $seat_type.ID 0}}disabled="disabled"{{end}}>
                         {{range $studyRoom := .studyRoomMap}}
                         {{if $studyRoom}}
-                        <option value="{{$studyRoom.ID}}" {{if eq $seat_type.Sid $studyRoom.ID}} selected {{end}}>{{$studyRoom.Name}}</option>
+                        <option value="{{$studyRoom.ID}}" {{if eq $seat_type.Sid $studyRoom.ID}} selected {{end}}>
+                            {{$studyRoom.Name}}
+                        </option>
                         {{else}}
                         <option value="{{$studyRoom.ID}}">{{$studyRoom.Name}}</option>
                         {{end}}
@@ -57,19 +58,72 @@
                     </select>
                 </div>
             </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"><span class="text-danger"> * </span> 类型名称 </label>
+                <div class="col-sm-4">
+                    <input type="text" name="name" class="form-control" value="{{$seat_type.Name}}"
+                           placeholder="类型名称">
+                </div>
+            </div>
+
+            {{if ne $seat_type.ID 0}}
+            {{range $key, $price := $seat_type.PriceInfo}}
+            <div class="form-group">
+                <label class="col-sm-2 control-label"><span class="text-danger"> * </span> 类型价格 </label>
+                <div class="col-sm-4">
+                    <input type="text" name="key" class="form-control" value="{{$key}}" placeholder="价格名称">
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" name="price" class="form-control" value="{{$price}}" placeholder="价格">
+                </div>
+            </div>
+            {{end}}
+            {{else}}
+            <div class="form-group">
+                <label class="col-sm-2 control-label"><span class="text-danger"> * </span> 类型价格 </label>
+                <div class="col-sm-4">
+                    <input type="text" name="key" class="form-control" value="" placeholder="价格名称">
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" name="price" class="form-control" value="" placeholder="价格">
+                </div>
+                <div style="margin-top: 5px">
+                    <i class="glyphicon glyphicon-plus" id="click"></i>
+                </div>
+            </div>
+            {{end}}
+
             <input type="hidden" name="id" class="form-control" value="{{$seat_type.ID}}">
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="button" onclick="Form.ajaxSubmit(this.form, {{if $seat_type}} true {{else}} false {{end}})" class="btn btn-primary">保存</button>
+                    <button type="button"
+                            onclick="Form.ajaxSubmit(this.form, {{if ne $seat_type.ID 0}} true {{else}} false {{end}})"
+                            class="btn btn-primary">保存
+                    </button>
                 </div>
             </div>
         </form>
     </div>
 </div>
 
-
-
+<script>
+    var content = "<div class=\"form-group\">\
+                <label class=\"col-sm-2 control-label\"><span class=\"text-danger\"> * </span> 类型价格 </label>\
+                <div class=\"col-sm-4\">\
+                    <input type=\"text\" name=\"key\" class=\"form-control\" value=\"\" placeholder=\"价格名称\">\
+                </div>\
+                <div class=\"col-sm-4\">\
+                    <input type=\"text\" name=\"price\" class=\"form-control\" value=\"\" placeholder=\"价格\">\
+                </div>\
+                <div style=\"margin-top: 5px\">\
+                    <i class=\"glyphicon glyphicon-plus\" id=\"click\"></i>\
+                </div>\
+            </div>"
+    $("#click").click(function(){
+        $(this).parent(".form-group").after(content)
+    });
+</script>
 </body>
 
 </html>
