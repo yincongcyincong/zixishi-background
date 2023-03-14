@@ -13,7 +13,7 @@ import (
 func AddBuyRecord(c *gin.Context) {
 
 	param := new(model.BuyRecordParam)
-	err := c.BindQuery(param)
+	err := c.Bind(param)
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusOK, utils.Fail(utils.ParamErrCode, utils.ParamErrMsg, ""))
@@ -47,7 +47,7 @@ func AddBuyRecord(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, utils.Succ(""))
+	c.JSON(http.StatusOK, utils.SuccWithUrl("/buy_record/get"))
 }
 
 func GetRecord(c *gin.Context) {
@@ -64,15 +64,28 @@ func GetRecord(c *gin.Context) {
 		return
 	}
 	var count int64
-	result = config.DB.Count(&count)
+	result = config.DB.Model(records).Count(&count)
 	if result.Error != nil {
 		log.Println(result.Error)
 		c.AbortWithStatus(http.StatusInternalServerError)
 		return
 	}
 
+	studyRoomMap, err := model.GetAllStudyRoomMap()
+	if err != nil {
+		log.Println(result.Error)
+		c.AbortWithStatus(http.StatusInternalServerError)
+		return
+	}
+
+	for _, v := range records {
+		if _, ok := studyRoomMap[v.Sid]; ok {
+			v.StudyRoomName = studyRoomMap[v.Sid].Name
+		}
+	}
+
 	// c.JSON：返回JSON格式的数据
-	c.HTML(http.StatusOK, "main.html", gin.H{
+	c.HTML(http.StatusOK, "buy_record.html", gin.H{
 		"title":   "posts/index",
 		"records": records,
 		"count":   utils.NewPaginator(c.Request, number, count),
@@ -82,7 +95,7 @@ func GetRecord(c *gin.Context) {
 
 func UpdateBuyRecord(c *gin.Context) {
 	param := new(model.BuyRecordParam)
-	err := c.BindQuery(param)
+	err := c.Bind(param)
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusOK, utils.Fail(utils.ParamErrCode, utils.ParamErrMsg, ""))
@@ -97,17 +110,18 @@ func UpdateBuyRecord(c *gin.Context) {
 	dbParam := &model.BuyRecord{
 		ID:        param.ID,
 		Sid:       param.Sid,
+		Uname:     param.Uname,
 		EndTime:   param.EndTime,
 		StartTime: param.StartTime,
 	}
-	result := config.DB.Model(dbParam).Update(dbParam)
+	result := config.DB.Model(dbParam).Save(dbParam)
 	if result.Error != nil {
 		log.Println(result.Error)
 		c.JSON(http.StatusOK, utils.Fail(utils.DBErrCode, utils.DBErrMsg, ""))
 		return
 	}
 
-	c.JSON(http.StatusOK, utils.Succ(""))
+	c.JSON(http.StatusOK, utils.SuccWithUrl("/buy_record/get"))
 }
 
 func BuyRecordForm(c *gin.Context) {
@@ -116,7 +130,7 @@ func BuyRecordForm(c *gin.Context) {
 	config.DB.Where("id = ?", id).First(buyRecord)
 
 	// c.JSON：返回JSON格式的数据
-	c.HTML(http.StatusOK, "buy_record.html", gin.H{
+	c.HTML(http.StatusOK, "buy_record_form.html", gin.H{
 		"title":     "购买记录",
 		"buyRecord": buyRecord,
 	})

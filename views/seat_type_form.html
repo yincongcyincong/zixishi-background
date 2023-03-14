@@ -42,11 +42,19 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <br>{{$seat_type := .seat_type}}
-        <form class="form-horizontal" method="post" action="{{if $seat_type}} /seat_type/update {{else}} /seat_type/add {{end}}">
+        <form class="form-horizontal" method="post" action="{{if ne $seat_type.ID 0 }} /seat_type/update {{else}} /seat_type/add {{end}}">
             <div class="form-group">
-                <label class="col-sm-2 control-label"><span class="text-danger"> * </span> 座位ID </label>
-                <div class="col-sm-4">
-                    <input type="text" name="show_id" class="form-control" value="{{$seat_type.ID}}" placeholder="座位ID" readonly>
+                <label class="col-sm-2 control-label"><span class="text-danger"> * </span> 自习室</label>
+                <div class="col-sm-5">
+                    <select name="group_id" class="form-control" {{if ne $seat_type.ID 0}}disabled="disabled"{{end}}>
+                        {{range $studyRoom := .studyRoomMap}}
+                        {{if $studyRoom}}
+                        <option value="{{$studyRoom.ID}}" {{if eq $seat_type.Sid $studyRoom.ID}} selected {{end}}>{{$studyRoom.Name}}</option>
+                        {{else}}
+                        <option value="{{$studyRoom.ID}}">{{$studyRoom.Name}}</option>
+                        {{end}}
+                        {{end}}
+                    </select>
                 </div>
             </div>
             <input type="hidden" name="id" class="form-control" value="{{$seat_type.ID}}">

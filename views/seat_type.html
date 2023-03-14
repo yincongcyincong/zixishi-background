@@ -78,7 +78,11 @@
                 <td class="center">{{$record.ID}}</td>
                 <td>{{$record.StudyRoomName}}</td>
                 <td>{{$record.Name}}</td>
-                <td>{{$record.PriceIntro}}</td>
+                <td>
+                    {{range $key, $price := $record.PriceInfo}}
+                    {{$key}}:{{$price}}元
+                    {{end}}
+                </td>
                 <td class="center">
                     <a name="edit" class="glyphicon glyphicon-edit" data-link="/seat_type/form?id={{$record.ID}}">修改</a>
                     <a onclick="Layers.confirm('确定删除吗？', '/seat_type/delete?id={{$record.ID}}');" class="remove glyphicon glyphicon-trash">删除</a>
@@ -93,7 +97,7 @@
     </div>
 </div>
 <script type="text/javascript">
-    Layers.bindIframe("[name='edit']", "修改项目组信息", "400px", "850px")
+    Layers.bindIframe("[name='edit']", "修改座位类型信息", "400px", "850px")
 </script>
 </body>
 

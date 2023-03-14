@@ -29,6 +29,7 @@
     <script src="/static/style/common/common.js"></script>
     <script src="/static/style/common/date.js"></script>
     <script src="/static/style/module/main.js"></script>
+    <link href="/static/style/time/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="/static/style/content-style.css">
 </head>
@@ -41,16 +42,38 @@
 
 <div class="panel panel-default">
     <div class="panel-body">
-        <br>{{$buy_record := .buy_record}}
-        <form class="form-horizontal" method="post" action="{{if $buy_record}} /buy_record/update {{else}} /buy_record/add {{end}}">
+        <br>{{$buy_record := .buyRecord}}
+        <form class="form-horizontal" method="post" action="{{if ne $buy_record.ID 0}} /buy_record/update {{else}} /buy_record/add {{end}}">
             <div class="form-group">
                 <label class="col-sm-2 control-label"><span class="text-danger"> * </span> 座位ID </label>
                 <div class="col-sm-4">
-                    <input type="text" name="show_id" class="form-control" value="{{$buy_record.ID}}" placeholder="座位ID" readonly>
+                    <input type="text" name="id" class="form-control" value="{{$buy_record.ID}}" placeholder="座位ID">
                 </div>
             </div>
-            <input type="hidden" name="id" class="form-control" value="{{$buy_record.ID}}">
-
+            <div class="form-group">
+                <label class="col-sm-2 control-label"><span class="text-danger"> * </span> 购买人 </label>
+                <div class="col-sm-4">
+                    <input type="text" name="uname" class="form-control" value="{{$buy_record.Uname}}" placeholder="购买人">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"><span class="text-danger"> * </span> 购买金额 </label>
+                <div class="col-sm-4">
+                    <input type="text" name="price" class="form-control" value="{{$buy_record.Price}}" placeholder="购买金额">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"><span class="text-danger"> * </span> 开始时间： </label>
+                <div class="col-sm-4">
+                    <input value="{{$buy_record.StartTime}}" readonly type="text" name="block_start_time" class="form-control time" placeholder="请选择开始时间" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"><span class="text-danger"> * </span> 结束时间： </label>
+                <div class="col-sm-4">
+                    <input value="{{$buy_record.EndTime}}" readonly type="text" name="block_end_time" class="form-control time" placeholder="请选择结束时间" required>
+                </div>
+            </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <button type="button" onclick="Form.ajaxSubmit(this.form, {{if $buy_record}} true {{else}} false {{end}})" class="btn btn-primary">保存</button>

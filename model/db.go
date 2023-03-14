@@ -23,24 +23,26 @@ type Seatinfo struct {
 }
 
 type SeatType struct {
-	ID            int64  `json:"id" gorm:"column:id"`
-	Sid           int64  `json:"sid"`
-	Intro         string `json:"intro"`
-	PriceIntro    string `json:"price_intro"`
-	Name          string `json:"name"`
-	StudyRoomName string `json:"study_room_name" gorm:"-"`
+	ID            int64                  `json:"id" gorm:"column:id"`
+	Sid           int64                  `json:"sid"`
+	Intro         string                 `json:"intro"`
+	PriceIntro    string                 `json:"price_intro"`
+	Name          string                 `json:"name"`
+	StudyRoomName string                 `json:"study_room_name" gorm:"-"`
+	PriceInfo     map[string]interface{} `json:"price_info" gorm:"-"`
 }
 
 type BuyRecord struct {
-	ID        int64  `json:"id" gorm:"column:id"`
-	Sid       int64  `json:"sid"`
-	SeatId    int64  `json:"seat_id"`
-	Uid       string `json:"uid"`
-	Uname     string `json:"uname"`
-	Price     int64  `json:"price"`
-	EndTime   int64  `json:"end_time"`
-	StartTime int64  `json:"start_time"`
-	BuyTime   int64  `json:"buy_time"`
+	ID            int64  `json:"id" gorm:"column:id"`
+	Sid           int64  `json:"sid"`
+	SeatId        int64  `json:"seat_id"`
+	Uid           string `json:"uid"`
+	Uname         string `json:"uname"`
+	Price         int64  `json:"price"`
+	EndTime       int64  `json:"end_time"`
+	StartTime     int64  `json:"start_time"`
+	BuyTime       int64  `json:"buy_time"`
+	StudyRoomName string `json:"study_room_name" gorm:"-"`
 }
 
 func GetAllStudyRoomMap() (map[int64]*StudyRoom, error) {

@@ -8,10 +8,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>{{.title}}</title>
-    <meta name="robots" content="index, follow" />
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="robots" content="index, follow"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <link rel="stylesheet" href="/static/style/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/static/style/bem-kit.min.css">
     <link rel="stylesheet" type="text/css" href="/static/style/lightweight-admin-template.css">
@@ -19,6 +19,7 @@
     <link rel="icon" href="/static/style/favicon.ico">
     <script src="/static/style/jquery.min.js"></script>
     <script src="/static/style/lightweight-admin-template.js"></script>
+
 </head>
 
 <body style="overflow: hidden;">
@@ -27,14 +28,17 @@
     <div class="header__wrapper">
 
         <div class="header__brand">
-            <a href="/main/index"><img src="/static/style/brand.png" /></a>
-            {{/*<div class="header__title"></div>*/}}
-            <a href="https://github.com/bzppx/bzppx-codepub/releases" target="_blank" style="text-decoration: none;"><span class="label label-default" style="padding: .2em .6em .2em;">{{.version}}</span></a>
+            <a href="/main/index"><img src="/static/style/brand.png"/></a>
+            {{/*
+            <div class="header__title"></div>
+            */}}
+            <a href="https://github.com/bzppx/bzppx-codepub/releases" target="_blank"
+               style="text-decoration: none;"><span class="label label-default" style="padding: .2em .6em .2em;">{{.version}}</span></a>
         </div>
 
         <div class="header__account account account--has-login">
             <div class="account__wrapper">
-                <img class="account__img" src="/static/style/irfan-maulana.jpg" />
+                <img class="account__img" src="/static/style/irfan-maulana.jpg"/>
                 <span class="account__name">{{.loginUser.username}}</span>
             </div>
             <i class="account__arrow fa fa-angle-down js--show-dropdown-menu"></i>
@@ -102,7 +106,8 @@
     </nav>
     <article class="main__content content">
         <div class="content__wrapper">
-            <iframe id="main" name="main" src="/main/default" scrolling="yes" style="overflow-y:auto;border:none;" frameborder="yes" width="100%"></iframe>
+            <iframe id="main" name="main" src="/main/default" scrolling="yes" style="overflow-y:auto;border:none;"
+                    frameborder="yes" width="100%"></iframe>
         </div>
     </article>
 </main>
@@ -139,6 +144,7 @@
             return a;
         }
     });
+
 </script>
 <!---------------------------------->
 </body>

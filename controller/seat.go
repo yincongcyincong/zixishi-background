@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"log"
@@ -88,18 +89,26 @@ func SeatInfoForm(c *gin.Context) {
 		return
 	}
 
+	studyRoomMap, err := model.GetAllStudyRoomMap()
+	if err != nil {
+		log.Println(result.Error)
+		c.AbortWithStatus(http.StatusInternalServerError)
+		return
+	}
+
 	// c.JSON：返回JSON格式的数据
 	c.HTML(http.StatusOK, "seatinfo_form.html", gin.H{
-		"title":       "座位信息",
-		"seatinfo":    seatinfo,
-		"seatTypeMap": seatTypeMap,
+		"title":        "座位信息",
+		"seatinfo":     seatinfo,
+		"seatTypeMap":  seatTypeMap,
+		"studyRoomMap": studyRoomMap,
 	})
 
 }
 
 func AddSeatInfo(c *gin.Context) {
 	param := new(model.SeatinfoParam)
-	err := c.BindQuery(param)
+	err := c.Bind(param)
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusOK, utils.Fail(utils.ParamErrCode, utils.ParamErrMsg, ""))
@@ -120,13 +129,13 @@ func AddSeatInfo(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, utils.Succ(""))
+	c.JSON(http.StatusOK, utils.SuccWithUrl("/seatinfo/get"))
 
 }
 
 func UpdateSeatInfo(c *gin.Context) {
 	param := new(model.SeatinfoParam)
-	err := c.BindQuery(param)
+	err := c.Bind(param)
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusOK, utils.Fail(utils.ParamErrCode, utils.ParamErrMsg, ""))
@@ -146,13 +155,13 @@ func UpdateSeatInfo(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, utils.Succ(""))
+	c.JSON(http.StatusOK, utils.SuccWithUrl("/seatinfo/get"))
 
 }
 
 func DeleteSeatInfo(c *gin.Context) {
 	param := new(model.SeatinfoParam)
-	err := c.BindQuery(param)
+	err := c.Bind(param)
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusOK, utils.Fail(utils.ParamErrCode, utils.ParamErrMsg, ""))
@@ -170,7 +179,7 @@ func DeleteSeatInfo(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, utils.Succ(""))
+	c.JSON(http.StatusOK, utils.SuccWithUrl("/seatinfo/get"))
 
 }
 
@@ -188,7 +197,7 @@ func GetSeatType(c *gin.Context) {
 		return
 	}
 	var count int64
-	result = config.DB.Count(&count)
+	result = config.DB.Model(records).Count(&count)
 	if result.Error != nil {
 		log.Println(result.Error)
 		c.AbortWithStatus(http.StatusInternalServerError)
@@ -206,11 +215,12 @@ func GetSeatType(c *gin.Context) {
 		if _, ok := studyRoomMap[v.Sid]; ok {
 			v.StudyRoomName = studyRoomMap[v.Sid].Name
 		}
+		json.Unmarshal([]byte(v.PriceIntro), &v.PriceInfo)
 	}
 
 	// c.JSON：返回JSON格式的数据
-	c.HTML(http.StatusOK, "main.html", gin.H{
-		"title":     "posts/index",
+	c.HTML(http.StatusOK, "seat_type.html", gin.H{
+		"title":     "seat_type",
 		"records":   records,
 		"paginator": utils.NewPaginator(c.Request, number, count),
 	})
@@ -219,7 +229,7 @@ func GetSeatType(c *gin.Context) {
 
 func AddSeatType(c *gin.Context) {
 	param := new(model.SeatTypeParam)
-	err := c.BindQuery(param)
+	err := c.Bind(param)
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusOK, utils.Fail(utils.ParamErrCode, utils.ParamErrMsg, ""))
@@ -240,7 +250,7 @@ func AddSeatType(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, utils.Succ(""))
+	c.JSON(http.StatusOK, utils.SuccWithUrl("/seat_type/get"))
 
 }
 
@@ -250,17 +260,16 @@ func SeatTypeForm(c *gin.Context) {
 	config.DB.Where("id = ?", id).First(seatType)
 
 	// c.JSON：返回JSON格式的数据
-	c.HTML(http.StatusOK, "seatinfo_form.html", gin.H{
-		"title":       "座位信息",
-		"seatType":    seatType,
+	c.HTML(http.StatusOK, "seat_type_form.html", gin.H{
+		"title":    "座位信息",
+		"seatType": seatType,
 	})
 
 }
 
-
 func UpdateSeatType(c *gin.Context) {
 	param := new(model.SeatTypeParam)
-	err := c.BindQuery(param)
+	err := c.Bind(param)
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusOK, utils.Fail(utils.ParamErrCode, utils.ParamErrMsg, ""))
@@ -281,13 +290,13 @@ func UpdateSeatType(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, utils.Succ(""))
+	c.JSON(http.StatusOK, utils.SuccWithUrl("/seat_type/get"))
 
 }
 
 func DeleteSeatType(c *gin.Context) {
 	param := new(model.SeatTypeParam)
-	err := c.BindQuery(param)
+	err := c.Bind(param)
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusOK, utils.Fail(utils.ParamErrCode, utils.ParamErrMsg, ""))
@@ -305,6 +314,6 @@ func DeleteSeatType(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, utils.Succ(""))
+	c.JSON(http.StatusOK, utils.SuccWithUrl("/seat_type/get"))
 
 }

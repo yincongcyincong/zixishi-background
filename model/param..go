@@ -21,12 +21,12 @@ type SeatTypeParam struct {
 }
 
 type BuyRecordParam struct {
-	ID        int64  `json:"id"`
-	Sid       int64  `json:"sid"`
-	SeatId    int64  `json:"seat_id"`
+	ID        int64  `json:"id"  form:"id"`
+	Sid       int64  `json:"sid"  form:"sid"`
+	SeatId    int64  `json:"seat_id"  form:"seat_id"`
 	Uid       string `json:"uid"`
-	Uname     string `json:"uname"`
-	Price     int64  `json:"price"`
+	Uname     string `json:"uname" form:"uname"`
+	Price     int64  `json:"price" form:"price"`
 	EndTime   int64  `json:"end_time"`
 	StartTime int64  `json:"start_time"`
 	BuyTime   int64  `json:"buy_time"`
