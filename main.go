@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"zixishi-background/config"
 	"zixishi-background/controller"
+	"zixishi-background/controller/api"
 	"zixishi-background/middleware"
 	"zixishi-background/utils"
 )
@@ -23,7 +24,7 @@ func initRouter(r *gin.Engine) {
 	r.LoadHTMLFiles("views/main.html", "views/seatinfo.html", "views/paginator.html", "views/login.html",
 		"views/seatinfo_form.html", "views/studyroom_form.html", "views/studyroom.html", "views/seat_type.html",
 		"views/seat_type_form.html", "views/buy_record.html", "views/buy_record_form.html")
-	r.StaticFS("/static/style", http.Dir("./static/style"))
+	r.StaticFS("/static", http.Dir("./static"))
 
 	r.Use(middleware.AuthMiddleWare())
 
@@ -59,5 +60,9 @@ func initRouter(r *gin.Engine) {
 	r.GET("/login/captcha", controller.Captcha)
 
 	r.POST("/img/upload", controller.Upload)
+
+	// 对外api
+	r.GET("/api/study_room/get", api.GetStudyRoom)
+	r.GET("/api/seat/get", api.GetSeatInfo)
 
 }

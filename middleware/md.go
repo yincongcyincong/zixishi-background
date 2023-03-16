@@ -3,6 +3,7 @@ package middleware
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strings"
 )
 
 func AuthMiddleWare() gin.HandlerFunc {
@@ -14,7 +15,8 @@ func AuthMiddleWare() gin.HandlerFunc {
 				return
 			}
 		}
-		if url := c.Request.URL.String(); url == "/login" || url == "/do_login" || url == "/login/captcha" {
+		if url := c.Request.URL.String(); url == "/login" || url == "/do_login" || url == "/login/captcha" ||
+			strings.Contains(url, "/api/") {
 			c.Next()
 			return
 		}

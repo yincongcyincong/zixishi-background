@@ -92,3 +92,23 @@ func GetBuyRecordMap() (map[int64][]*BuyRecord, error) {
 
 	return buyRecordMap, nil
 }
+
+func GetAllSeatType() ([]*SeatType, error) {
+	seatTypes := make([]*SeatType, 0)
+	result := config.DB.Find(&seatTypes)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	return seatTypes, nil
+}
+
+func GetAllSeatinfo() ([]*Seatinfo, error) {
+	seatInfos := make([]*Seatinfo, 0)
+	result := config.DB.Find(&seatInfos)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	return seatInfos, nil
+}
